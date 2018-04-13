@@ -12,7 +12,7 @@
         <ui:include src="../menus.xhtml"/>
         <center>
             <p:fieldset>
-                <h1> Consultar Horário de Atendimento </h1>
+                <h1> Horário de Atendimento </h1>
             </p:fieldset>
             <p:growl id='growl'/>
             <h:form >
@@ -27,17 +27,35 @@
                                            itemLabel="#{especialidades.nome}" itemValue="#{especialidades}" ></f:selectItems>
                         </p:selectOneMenu>
                         <p:outputLabel value="Dia"/>
-                        <p:selectOneMenu id="dias" value="#{horarioAtendimentoController.horarioAtendimento.dia}">
-                            <f:selectItems var="dias" value="#{horarioAtendimentoController.dias}"
-                                           itemLabel="#{dias.nome}" itemValue="#{dias}" ></f:selectItems>
-                        </p:selectOneMenu>
+                        <p:dataList id="diasN" value="Segunda"/>
                         <p:outputLabel value="Quantidade de atendimentos"/>
-                        <p:inputNumber minValue="1" decimalPlaces="0"  value="#{horarioAtendimentoController.horarioAtendimento.quantidade}"></p:inputNumber>
+                        <p:dataList id="dias" value="0"/>
                     </p:panelGrid>
+
+                    <p:dataTable>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Dia da Semana" />
+                            </f:facet>
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantidade de atendimentos" />
+                            </f:facet>
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+                    </p:dataTable>
                 </p:fieldset>
+                <p:commandButton update= "growl @form" value="Cadastrar" action="#{horarioAtendimentoController.cadastrarHorarioAtendimentoPosto()}"/>
+                <p:commandButton oncomplete="PF('confDialCancelar').show()" value="Cancelar"/>
+                <p:confirmDialog header="Deseja cancelar?" widgetVar="confDialCancelar"
+                                 message="Caso escolha cancelar, os dados que não foram salvos, serão perdidos" >
+                    <p:button href="/index.html" value="Sim"/>
+                    <p:commandButton oncomplete="PF('confDialCancelar').hide()" value="Não"/>
+                </p:confirmDialog>
             </h:form>
         </center>
     </h:body>
 </html>
-
 
